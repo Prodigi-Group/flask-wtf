@@ -111,6 +111,8 @@ def validate_csrf(data, secret_key=None, time_limit=None, token_key=None):
     except BadData as e:
         raise ValidationError("The CSRF token is invalid.") from e
 
+    token = token.encode('utf-8')
+
     if not hmac.compare_digest(session[field_name], token):
         raise ValidationError("The CSRF tokens do not match.")
 
